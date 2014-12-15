@@ -176,28 +176,28 @@ median(df.dt2$sum)
 ## Are there differences in activity patterns between weekdays and weekends?
 
 ```r
-wf<-as.factor(ifelse(weekdays(ds$date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))
-df.dt[,wf:=as.factor(ifelse(weekdays(df.dt$date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))]
+df.dt2[,wf:=as.factor(ifelse(weekdays(df.dt2$date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))]
 ```
 
 ```
-##        steps       date interval sum      wf
-##     1:    NA 2012-10-01        0   0 weekday
-##     2:    NA 2012-10-01        5   0 weekday
-##     3:    NA 2012-10-01       10   0 weekday
-##     4:    NA 2012-10-01       15   0 weekday
-##     5:    NA 2012-10-01       20   0 weekday
-##    ---                                      
-## 17564:    NA 2012-11-30     2335   0 weekday
-## 17565:    NA 2012-11-30     2340   0 weekday
-## 17566:    NA 2012-11-30     2345   0 weekday
-## 17567:    NA 2012-11-30     2350   0 weekday
-## 17568:    NA 2012-11-30     2355   0 weekday
+##            steps       date interval      sum      wf
+##     1: 1.7169811 2012-10-01        0 10766.19 weekday
+##     2: 0.3396226 2012-10-01        5 10766.19 weekday
+##     3: 0.1320755 2012-10-01       10 10766.19 weekday
+##     4: 0.1509434 2012-10-01       15 10766.19 weekday
+##     5: 0.0754717 2012-10-01       20 10766.19 weekday
+##    ---                                               
+## 17564: 4.6981132 2012-11-30     2335 10766.19 weekday
+## 17565: 3.3018868 2012-11-30     2340 10766.19 weekday
+## 17566: 0.6415094 2012-11-30     2345 10766.19 weekday
+## 17567: 0.2264151 2012-11-30     2350 10766.19 weekday
+## 17568: 1.0754717 2012-11-30     2355 10766.19 weekday
 ```
 
 ```r
+dm3<-df.dt2[,mean(steps, na.rm=TRUE), by=c("interval", "wf")]
 library(lattice)
-xyplot(type="l", data=df.dt, steps ~ interval | wf, layout=c(1,2), ylab="Steps", xlab="Interval")
+xyplot(type="l", data=dm3, V1 ~ interval | wf, layout=c(1,2), ylab="Steps", xlab="Interval")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png) 
