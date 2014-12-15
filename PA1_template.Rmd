@@ -82,9 +82,9 @@ median(df.dt2$sum)
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}
-wf<-as.factor(ifelse(weekdays(ds$date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))
-df.dt[,wf:=as.factor(ifelse(weekdays(df.dt$date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))]
+df.dt2[,wf:=as.factor(ifelse(weekdays(df.dt2$date) %in% c("Saturday", "Sunday"), "weekend", "weekday"))]
+dm3<-df.dt2[,mean(steps, na.rm=TRUE), by=c("interval", "wf")]
 library(lattice)
-xyplot(type="l", data=df.dt, steps ~ interval | wf, layout=c(1,2), ylab="Steps", xlab="Interval")
+xyplot(type="l", data=dm3, V1 ~ interval | wf, layout=c(1,2), ylab="Steps", xlab="Interval")
 ```
 
